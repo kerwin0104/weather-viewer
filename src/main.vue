@@ -1,106 +1,44 @@
 <template>
 	<!-- App -->
 	<div id="app">
-		
 		<!-- Statusbar -->
 		<f7-statusbar></f7-statusbar>
-		
-		<!-- Left Panel -->
-		<f7-panel left reveal layout="dark">
-			<f7-view id="left-panel-view" navbar-through :dynamic-navbar="true">
-				<f7-navbar title="Left Panel"></f7-navbar>
-				<f7-pages>
-					<f7-page>
-						<f7-block inner>
-							<p>Left panel content goes here</p>
-						</f7-block>
-						<f7-block-title>Load page in panel</f7-block-title>
-						<f7-list>
-							<f7-list-item link="/about/" title="About"></f7-list-item>
-							<f7-list-item link="/form/" title="Form"></f7-list-item>
-						</f7-list>
-						<f7-block-title>Load page in main view</f7-block-title>
-						<f7-list>
-							<f7-list-item link="/about/" title="About" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/form/" title="Form" link-view="#main-view" link-close-panel></f7-list-item>
-						</f7-list>
-					</f7-page>
-				</f7-pages>
-			</f7-view>
-		</f7-panel>
-		
-		<!-- Right Panel -->
-		<f7-panel right cover layout="dark">
-			<f7-view id="right-panel-view" navbar-through :dynamic-navbar="true">
-				<f7-navbar title="Right Panel" sliding></f7-navbar>
-				<f7-pages>
-					<f7-page>
-						<f7-block>
-							<p>Right panel content goes here</p>
-						</f7-block>
-						<f7-block-title>Load page in panel</f7-block-title>
-						<f7-list>
-							<f7-list-item link="/about/" title="About"></f7-list-item>
-							<f7-list-item link="/form/" title="Form"></f7-list-item>
-						</f7-list>
-						<f7-block-title>Load page in main view</f7-block-title>
-						<f7-list>
-							<f7-list-item link="/about/" title="About" link-view="#main-view" link-close-panel></f7-list-item>
-							<f7-list-item link="/form/" title="Form" link-view="#main-view" link-close-panel></f7-list-item>
-						</f7-list>
-					</f7-page>
-				</f7-pages>
-			</f7-view>
-		</f7-panel>
 		
 		<!-- Main Views -->
 		<f7-views>
 			<f7-view id="main-view" navbar-through :dynamic-navbar="true" main>
 				<!-- Navbar -->
-				<f7-navbar>
-					<f7-nav-left>
-						<f7-link icon="icon-bars" open-panel="left"></f7-link>
-					</f7-nav-left>
-					<f7-nav-center sliding>Framework7</f7-nav-center>
+				<f7-navbar class="title-bar">
+					<f7-nav-center sliding>看天气</f7-nav-center>
 					<f7-nav-right>
-						<f7-link icon="icon-bars" open-panel="right"></f7-link>
+						<f7-button open-popup="#popup">+</f7-button>
 					</f7-nav-right>
 				</f7-navbar>
 				<!-- Pages -->
 				<f7-pages>
 					<f7-page>
-						<f7-block-title>Welcome to my App</f7-block-title>
-						<f7-block inner>
-							<p>Duis sed erat ac eros ultrices pharetra id ut tellus. Praesent rhoncus enim ornare ipsum aliquet ultricies. Pellentesque sodales erat quis elementum sagittis.</p>
-						</f7-block>
-						<f7-block-title>Navigation</f7-block-title>
 						<f7-list>
-							<f7-list-item link="/about/" title="About"></f7-list-item>
-							<f7-list-item link="/form/" title="Form"></f7-list-item>
-							<f7-list-item link="/dynamic-route/blog/45/post/125/?foo=bar#about" title="Dynamic Route"></f7-list-item>
+              <li class="swipeout" @swipeout:deleted="onSwipeoutDeleted">
+                <div class="swipeout-content item-content">
+                  <div class="item-inner">
+                    <div class="item-title">
+                      北京 39   &#176;C
+                      <p>
+                        微风 有雨
+                      </p>
+                    </div>
+                    <div class="item-after">
+                        List element label
+                    </div>
+                  </div>
+                </div>
+                <div class="swipeout-actions-right">
+                  <a href="#" class="swipeout-delete">
+                    删除
+                  </a>
+                </div>
+              </li>
 						</f7-list>
-						<f7-block-title>Side Panels</f7-block-title>
-						<f7-block>
-							<f7-grid>
-								<f7-col width="50">
-									<f7-button open-panel="left">Left Panel</f7-button>
-								</f7-col>
-								<f7-col width="50">
-									<f7-button open-panel="right">Right Panel</f7-button>
-								</f7-col>
-							</f7-grid>
-						</f7-block>
-						<f7-block-title>Modals</f7-block-title>
-						<f7-block>
-							<f7-grid>
-								<f7-col width="50">
-									<f7-button open-popup="#popup">Popup</f7-button>
-								</f7-col>
-								<f7-col width="50">
-									<f7-button open-login-screen="#login-screen">Login Screen</f7-button>
-								</f7-col>
-							</f7-grid>
-						</f7-block>
 					</f7-page>
 				</f7-pages>
 			</f7-view>
@@ -111,47 +49,76 @@
 			<f7-view navbar-fixed>
 				<f7-pages>
 					<f7-page>
-						<f7-navbar title="Popup">
+						<f7-navbar class="title-bar">
+              <f7-searchbar search-list="#search-list" placeholder="请输入城市"></f7-searchbar>
 							<f7-nav-right>
-								<f7-link :close-popup="true">Close</f7-link>
+								<f7-link :close-popup="true">取消</f7-link>
 							</f7-nav-right>
 						</f7-navbar>
-						<f7-block>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, architecto. Cupiditate laudantium rem nesciunt numquam, ipsam. Voluptates omnis, a inventore atque ratione aliquam. Omnis iusto nemo quos ullam obcaecati, quod.</f7-block>
+
+
+            <f7-block class="searchbar-not-found">
+              未找到该城市
+            </f7-block>
+
+            <f7-list
+              id="search-list"
+              class="searchbar-found"
+              v-show="items.length"
+              virtual
+              :virtual-items="items"
+              :virtual-search-all="searchAll"
+              >
+              <!-- Templte 7 Virtual List Item Template -->
+              <t7-template>
+                <f7-list-item :title="'{{title}}'"></f7-list-item>
+              </t7-template>
+            </f7-list>
+
+
 					</f7-page>
 				</f7-pages>
 			</f7-view>
 		</f7-popup>
-		
-		<!-- Login Screen -->
-		<f7-login-screen id="login-screen">
-			<f7-view>
-				<f7-pages>
-					<f7-page login-screen>
-						<f7-login-screen-title>Login</f7-login-screen-title>
-						<f7-list form>
-							<f7-list-item>
-								<f7-label>Username</f7-label>
-								<f7-input name="username" placeholder="Username" type="text"></f7-input>
-							</f7-list-item>
-							<f7-list-item>
-								<f7-label>Password</f7-label>
-								<f7-input name="password" type="password" placeholder="Password"></f7-input>
-							</f7-list-item>
-						</f7-list>
-						<f7-list>
-							<f7-list-button title="Sign In" close-login-screen></f7-list-button>
-							<f7-list-label>
-								<p>Click Sign In to close Login Screen</p>
-							</f7-list-label>
-						</f7-list>
-					</f7-page>
-				</f7-pages>
-			</f7-view>
-		</f7-login-screen>
-	
 	</div>
 </template>
 
 <script>
-	export default {}
+	export default {
+    data () {
+      var items = []
+      items.push({
+        title: '北京',
+        subtitle: '北京'
+      })
+      return {
+        items
+      }
+    },
+    methods: {
+      searchAll (query) {
+        var self = this;
+        var found = [];
+        for (var i = 0; i < self.items.length; i++) {
+            if (self.items[i].title.indexOf(query) >= 0 || query.trim() === '') found.push(i);
+        }
+        return found;
+      }
+    }
+  }
 </script>
+<style lang="sass">
+.title-bar {
+  color: #fff;
+  .link,.button {
+    color: #fff;
+  }
+  .button {
+    border-color: #fff;
+  }
+  background: rgba(27, 22, 47, 0.88);
+  .searchbar {
+    background: none;
+  }
+}
+</style>
