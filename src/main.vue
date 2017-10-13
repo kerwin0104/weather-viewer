@@ -87,6 +87,8 @@
   const crypto = require('crypto')
   const $ = require('jquery')
 
+  // https://api.seniverse.com/v3/weather/now.json?key=spubq0leuz0kccjg&location=beijing&language=zh-Hans&unit=c
+
   function buildQuery (params) {
     var key = 'spubq0leuz0kccjg'
     var key = 'secret'
@@ -110,8 +112,10 @@
     console.log(sig)
     paramsArr.push(`sig=${sig}`)
     console.log(paramsArr.join('&'))
+    var url = 'https://api.seniverse.com/v3/weather/now.json?' + paramsArr.join('&')
+    console.log(url)
     $.ajax({
-      url: 'https://api.seniverse.com/v3/weather/now.json?' + paramsArr.join('&')
+      url 
     }).done(data => {
       alert(data)
     })
