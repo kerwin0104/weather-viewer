@@ -84,6 +84,44 @@
 </template>
 
 <script>
+  const crypto = require('crypto')
+  const $ = require('jquery')
+
+  function buildQuery (params) {
+    var key = 'spubq0leuz0kccjg'
+    var key = 'secret'
+    var uid = 'U0D6A7CE2F'
+    params.uid = uid
+    params.ttl = 30
+    params.ts = +new Date
+
+    var keys = Object.keys(params).sort()
+    var paramsArr = []
+
+    for (var k of keys) {
+      paramsArr.push(`${k}=${params[k]}`)
+    }
+
+    console.log(paramsArr)
+    var hmac = crypto.createHmac('sha1', key)
+    // hmac.update(paramsArr.join('&'));
+    hmac.update('ts=1443079775&ttl=30&uid=U123456789')
+    var sig = encodeURIComponent(hmac.digest().toString('base64'))
+    console.log(sig)
+    paramsArr.push(`sig=${sig}`)
+    console.log(paramsArr.join('&'))
+    $.ajax({
+      url: 'https://api.seniverse.com/v3/weather/now.json?' + paramsArr.join('&')
+    }).done(data => {
+      alert(data)
+    })
+  }
+
+  // location=beijing&ts=1443079775&ttl=30&uid=[your_uid]&sig=[your_signature]&callback=showWeather
+  buildQuery({
+    location: 'beijing',
+  })
+
 	export default {
     data () {
       var items = []
@@ -103,6 +141,8 @@
             if (self.items[i].title.indexOf(query) >= 0 || query.trim() === '') found.push(i);
         }
         return found;
+      },
+      onSwipeoutDeleted () {
       }
     }
   }
