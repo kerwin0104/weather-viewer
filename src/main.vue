@@ -6,7 +6,7 @@
 		
 		<!-- Main Views -->
 		<f7-views>
-			<f7-view id="main-view" navbar-fixed="true" navbar-through :dynamic-navbar="true" main>
+			<f7-view id="main-view" navbar-fixed navbar-through :dynamic-navbar="true" main>
 				<!-- Navbar -->
 				<f7-navbar class="title-bar">
 					<f7-nav-center sliding>看天气</f7-nav-center>
@@ -14,26 +14,24 @@
 				<!-- Pages -->
 				<f7-pages>
 					<f7-page>
-
-            <div class="content-block-title">城市列表</div>
             <f7-list accordion>
-              <f7-list-item swipeout accordion-item class="accordion-item-expanded" title="北京">
-                <f7-swipeout-actions>
-                  <f7-swipeout-button delete>删除</f7-swipeout-button>
-                </f7-swipeout-actions>
+              <f7-list-item accordion-item class="accordion-item-expanded" title="北京">
                 <f7-accordion-content>
                   <f7-block>
-                    <p>晴</p>
+                    <p>
+                      28° 晴
+                    </p>
+                    <img src="//s1.sencdn.com/web/icons/3d_50/0.png" />
                   </f7-block>
                 </f7-accordion-content>
               </f7-list-item>
-              <f7-list-item swipeout  accordion-item title="上海">
-                <f7-swipeout-actions>
-                  <f7-swipeout-button delete>删除</f7-swipeout-button>
-                </f7-swipeout-actions>
+              <f7-list-item accordion-item title="上海">
                 <f7-accordion-content>
                   <f7-block>
-                    <p>Accordion Item 2 Content</p>
+                    <p>
+                      28° 雨
+                    </p>
+                    <img src="//s1.sencdn.com/web/icons/3d_50/25.png" />
                   </f7-block>
                 </f7-accordion-content>
               </f7-list-item>
@@ -87,15 +85,6 @@
 </template>
 
 <script>
-  // if (DeviceInfo.isAndroid) {
-  //   require('framework7/dist/css/framework7.material.css');
-  //   require('framework7/dist/css/framework7.material.colors.css');
-  //   require('framework7-icons/css/framework7-icons.css');
-  // } else {
-    // require('framework7/dist/css/framework7.ios.css');
-    // require('framework7/dist/css/framework7.ios.colors.css');
-    // require('framework7-icons/css/framework7-icons.css');
-  // }
   require('framework7/dist/css/framework7.material.css');
   require('framework7/dist/css/framework7.material.colors.css');
 
@@ -103,14 +92,14 @@
   const $ = require('jquery')
 
   // https://api.seniverse.com/v3/weather/now.json?key=spubq0leuz0kccjg&location=beijing&language=zh-Hans&unit=c
-  var url = 'https://api.seniverse.com/v3/weather/now.json?key=spubq0leuz0kccjg&location=beijing&language=zh-Hans&unit=c'
-  $.ajax({
-    url
-  }).done(data => {
-    // alert(JSON.stringify(data))
-  }).fail(e => {
-    // alert(JSON.stringify(e))
-  })
+  // var url = 'https://api.seniverse.com/v3/weather/now.json?key=spubq0leuz0kccjg&location=beijing&language=zh-Hans&unit=c'
+  // $.ajax({
+  //   url
+  // }).done(data => {
+  //   // alert(JSON.stringify(data))
+  // }).fail(e => {
+  //   // alert(JSON.stringify(e))
+  // })
 
 	export default {
     data () {
@@ -132,13 +121,56 @@
         }
         return found;
       },
-      onSwipeoutDeleted () {
+      getData (location, callback) {
+        var mockData = {"results":[{"location":{"id":"WX4FBXXFKE4F","name":"北京","country":"CN","path":"北京,北京,中国","timezone":"Asia/Shanghai","timezone_offset":"+08:00"},"now":{"text":"阴","code":"9","temperature":"17"},"last_update":"2017-10-17T14:00:00+08:00"}]}
+         callback(mockData)
       }
     }
   }
 </script>
-<style>
+<style lang="sass">
 .navbar .searchbar:after{
   display: none;
+}
+.accordion-item {
+  .item-inner {
+     background: none!important;
+  }
+  img {
+    display: none;
+  }
+}
+.accordion-item-expanded {
+  background: #673ab7;
+  color: #fff;
+  opacity: .9;
+  &:after {
+    content: '';
+    display: block;
+    height: 1px;
+    overflow: hidden;
+    clear: both;
+  }
+  .item-inner {
+    .item-title {
+      &:after {
+        background: #fff;
+      }
+    }
+  }
+  .accordion-item-content {
+    float: left;
+    width: 100%;
+    overflow: visible;
+  }
+  img {
+    display: block;
+    position: absolute;
+    top: -35px;
+    right: 15px;
+  }
+  .content-block {
+    color: #fff;
+  }
 }
 </style>
