@@ -1,23 +1,20 @@
 <template>
 	<!-- App -->
-	<div id="app">
+	<div id="app" class="theme-deeppurple">
 		<!-- Statusbar -->
 		<f7-statusbar></f7-statusbar>
 		
 		<!-- Main Views -->
 		<f7-views>
-			<f7-view id="main-view" navbar-through :dynamic-navbar="true" main>
+			<f7-view id="main-view" navbar-fixed="true" navbar-through :dynamic-navbar="true" main>
 				<!-- Navbar -->
 				<f7-navbar class="title-bar">
 					<f7-nav-center sliding>看天气</f7-nav-center>
-					<f7-nav-right>
-						<f7-button open-popup="#popup">+</f7-button>
-					</f7-nav-right>
 				</f7-navbar>
 				<!-- Pages -->
 				<f7-pages>
 					<f7-page>
-						<f7-list>
+						<f7-list inset>
               <li class="swipeout" @swipeout:deleted="onSwipeoutDeleted">
                 <div class="swipeout-content item-content">
                   <div class="item-inner">
@@ -39,6 +36,10 @@
                 </div>
               </li>
 						</f7-list>
+
+            <f7-fab class="open-popup" data-popup="#popup">
+              <f7-icon icon="icon-plus">+</f7-icon>
+            </f7-fab>
 					</f7-page>
 				</f7-pages>
 			</f7-view>
@@ -84,46 +85,29 @@
 </template>
 
 <script>
+  // if (DeviceInfo.isAndroid) {
+  //   require('framework7/dist/css/framework7.material.css');
+  //   require('framework7/dist/css/framework7.material.colors.css');
+  //   require('framework7-icons/css/framework7-icons.css');
+  // } else {
+    // require('framework7/dist/css/framework7.ios.css');
+    // require('framework7/dist/css/framework7.ios.colors.css');
+    // require('framework7-icons/css/framework7-icons.css');
+  // }
+  require('framework7/dist/css/framework7.material.css');
+  require('framework7/dist/css/framework7.material.colors.css');
+
   const crypto = require('crypto')
   const $ = require('jquery')
 
   // https://api.seniverse.com/v3/weather/now.json?key=spubq0leuz0kccjg&location=beijing&language=zh-Hans&unit=c
-
-  function buildQuery (params) {
-    var key = 'spubq0leuz0kccjg'
-    var key = 'secret'
-    var uid = 'U0D6A7CE2F'
-    params.uid = uid
-    params.ttl = 30
-    params.ts = +new Date
-
-    var keys = Object.keys(params).sort()
-    var paramsArr = []
-
-    for (var k of keys) {
-      paramsArr.push(`${k}=${params[k]}`)
-    }
-
-    console.log(paramsArr)
-    var hmac = crypto.createHmac('sha1', key)
-    // hmac.update(paramsArr.join('&'));
-    hmac.update('ts=1443079775&ttl=30&uid=U123456789')
-    var sig = encodeURIComponent(hmac.digest().toString('base64'))
-    console.log(sig)
-    paramsArr.push(`sig=${sig}`)
-    console.log(paramsArr.join('&'))
-    var url = 'https://api.seniverse.com/v3/weather/now.json?' + paramsArr.join('&')
-    console.log(url)
-    $.ajax({
-      url 
-    }).done(data => {
-      alert(data)
-    })
-  }
-
-  // location=beijing&ts=1443079775&ttl=30&uid=[your_uid]&sig=[your_signature]&callback=showWeather
-  buildQuery({
-    location: 'beijing',
+  var url = 'https://api.seniverse.com/v3/weather/now.json?key=spubq0leuz0kccjg&location=beijing&language=zh-Hans&unit=c'
+  $.ajax({
+    url
+  }).done(data => {
+    // alert(JSON.stringify(data))
+  }).fail(e => {
+    // alert(JSON.stringify(e))
   })
 
 	export default {
@@ -151,18 +135,8 @@
     }
   }
 </script>
-<style lang="sass">
-.title-bar {
-  color: #fff;
-  .link,.button {
-    color: #fff;
-  }
-  .button {
-    border-color: #fff;
-  }
-  background: rgba(27, 22, 47, 0.88);
-  .searchbar {
-    background: none;
-  }
+<style>
+.navbar .searchbar:after{
+  display: none;
 }
 </style>

@@ -10,7 +10,7 @@
         Apache Cordova Team
     </author>
     <content src="index.html" />
-    <access origin="*" />
+    <access origin="*" subdomains="true" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -25,6 +25,6 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <allow-navigation href="*" />
-    <engine name="ios" spec="^4.4.0" />
+    <engine name="ios" spec="^4.5.2" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
 </widget>
