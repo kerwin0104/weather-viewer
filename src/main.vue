@@ -14,28 +14,30 @@
 				<!-- Pages -->
 				<f7-pages>
 					<f7-page>
-						<f7-list inset>
-              <li class="swipeout" @swipeout:deleted="onSwipeoutDeleted">
-                <div class="swipeout-content item-content">
-                  <div class="item-inner">
-                    <div class="item-title">
-                      北京 39   &#176;C
-                      <p>
-                        微风 有雨
-                      </p>
-                    </div>
-                    <div class="item-after">
-                        List element label
-                    </div>
-                  </div>
-                </div>
-                <div class="swipeout-actions-right">
-                  <a href="#" class="swipeout-delete">
-                    删除
-                  </a>
-                </div>
-              </li>
-						</f7-list>
+
+            <div class="content-block-title">城市列表</div>
+            <f7-list accordion>
+              <f7-list-item swipeout accordion-item class="accordion-item-expanded" title="北京">
+                <f7-swipeout-actions>
+                  <f7-swipeout-button delete>删除</f7-swipeout-button>
+                </f7-swipeout-actions>
+                <f7-accordion-content>
+                  <f7-block>
+                    <p>晴</p>
+                  </f7-block>
+                </f7-accordion-content>
+              </f7-list-item>
+              <f7-list-item swipeout  accordion-item title="上海">
+                <f7-swipeout-actions>
+                  <f7-swipeout-button delete>删除</f7-swipeout-button>
+                </f7-swipeout-actions>
+                <f7-accordion-content>
+                  <f7-block>
+                    <p>Accordion Item 2 Content</p>
+                  </f7-block>
+                </f7-accordion-content>
+              </f7-list-item>
+            </f7-list>
 
             <f7-fab class="open-popup" data-popup="#popup">
               <f7-icon icon="icon-plus">+</f7-icon>
